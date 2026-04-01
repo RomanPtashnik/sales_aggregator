@@ -1,0 +1,69 @@
+# Sales Aggregator
+
+Агрегатор данных о продажах — сервис для загрузки, обработки и анализа информации о продажах. Проект написан на **Python** с использованием **FastAPI** и может быть запущен как локально, так и в контейнере **Docker**.
+
+## 📋 Требования
+
+- Python 3.9 или выше (для локального запуска)
+- Docker (опционально)
+- Утилита `make` (необязательно, для упрощения команд)
+
+## 🚀 Быстрый старт
+
+### 1. Клонирование репозитория
+
+```bash
+git clone https://github.com/RomanPtashnik/sales_aggregator.git
+cd sales_aggregator
+2. Локальный запуск
+2.1 Создание виртуального окружения
+bash
+python -m venv venv
+source venv/bin/activate        # Linux/macOS
+venv\Scripts\activate           # Windows
+2.2 Установка зависимостей
+bash
+pip install -r requirements.txt
+2.3 Настройка окружения
+Создайте файл .env в корне проекта (при необходимости). Пример содержимого:
+
+env
+DATABASE_URL=sqlite:///./sales.db   # или другая БД
+PORT=8000
+2.4 Запуск приложения
+bash
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
+После запуска API будет доступно по адресу:
+http://localhost:8000
+Документация (Swagger) — http://localhost:8000/docs
+
+3. Запуск через Docker
+3.1 Сборка образа
+bash
+docker build -t sales_aggregator .
+3.2 Запуск контейнера
+bash
+docker run -p 8000:8000 --name sales_agg sales_aggregator
+Приложение станет доступно на http://localhost:8000.
+
+4. Запуск тестов
+bash
+pytest tests/
+📁 Структура проекта
+text
+.
+├── models/          # модели данных (SQLAlchemy, Pydantic)
+├── routers/         # эндпоинты API
+├── services/        # бизнес-логика
+├── tests/           # тесты
+├── main.py          # точка входа FastAPI
+├── requirements.txt # зависимости Python
+├── Dockerfile       # инструкция для сборки образа
+├── .gitignore
+└── 1_sample_data.csv # пример данных для загрузки
+🔧 Переменные окружения
+Переменная	Описание	По умолчанию
+DATABASE_URL	URL для подключения к базе данных	sqlite:///./db.sqlite3
+PORT	Порт, на котором запускается приложение	8000
+📌 Пример использования
+После запуска сервера можно отправить POST-запрос на эндпоинт /upload с CSV-файлом продаж (например, 1_sample_data.csv). Данные будут обработаны и сохранены в базу.
