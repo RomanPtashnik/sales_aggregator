@@ -44,7 +44,7 @@ DATABASE_URL=sqlite:///./sales.db   # или другая БД
 PORT=8000
 2.4 Запуск приложения
 bash
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
+python main.py
 После запуска API будет доступно по адресу:
 http://localhost:8000
 Документация (Swagger) — http://localhost:8000/docs
